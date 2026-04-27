@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Jagoda Zdanowska | Trychologia & Head Spa</title>
+    
+    <title>Jagoda Zdanowska | Trychologia & Head Spa | Zdrowe Włosy</title>
+    <meta name="description" content="Specjalistyczne zabiegi trychologiczne i japoński rytuał Head Spa u Jagody Zdanowskiej. Skuteczna walka z wypadaniem włosów i głęboki relaks. Umów wizytę!">
+    <meta name="keywords" content="trycholog, head spa, wypadanie włosów, masaż głowy, pielęgnacja włosów, Jagoda Zdanowska">
+    <meta name="author" content="Jagoda Zdanowska">
+    
+    <meta property="og:title" content="Jagoda Zdanowska | Trychologia & Head Spa">
+    <meta property="og:description" content="Odkryj rytuały dla duszy i włosów. Profesjonalna pomoc trychologiczna i relaks.">
+    <meta property="og:type" content="website">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:italic,wght@400;700&family=Montserrat:wght@200;400;600&display=swap');
         
@@ -14,7 +24,6 @@
         .text-gold { color: #c5a059; }
         .bg-gold { background-color: #c5a059; }
         
-        /* Deep Basaltowy Brąz */
         #main-nav { 
             background-color: #352e29; 
             border-bottom: 2px solid #c5a059;
@@ -73,7 +82,6 @@
             .hero-img-container:hover { transform: rotate(0deg) scale(1.02); box-shadow: 0 25px 50px -12px rgba(197, 160, 89, 0.5); }
         }
 
-        /* Ustawienie powiadomienia Cookies na środku z przyciemnieniem */
         #cookie-overlay {
             position: fixed;
             inset: 0;
@@ -117,9 +125,14 @@
 
     <nav class="fixed w-full z-[100] shadow-2xl" id="main-nav">
         <div class="max-w-7xl mx-auto px-6 w-full flex flex-row-reverse justify-between items-center">
-            <a href="#" onclick="showPage('home-page')" class="text-xl md:text-2xl font-light tracking-[0.2em] md:tracking-[0.4em] uppercase group text-right text-white">
-                Jagoda <span class="text-gold font-bold transition-colors">Zdanowska</span>
-            </a>
+            <div class="flex items-center gap-6">
+                <a href="https://instagram.com/twoj_profil" target="_blank" class="text-gold hover:text-white transition-colors text-xl">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" onclick="showPage('home-page')" class="text-xl md:text-2xl font-light tracking-[0.2em] md:tracking-[0.4em] uppercase group text-right text-white">
+                    Jagoda <span class="text-gold font-bold transition-colors">Zdanowska</span>
+                </a>
+            </div>
             
             <button onclick="toggleMenu()" class="hamburger p-2 z-[110] hover:opacity-70 focus:outline-none">
                 <span></span>
@@ -242,14 +255,21 @@
             <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20">
                 <div>
                     <h2 class="text-4xl md:text-5xl mb-10 italic">Odwiedź mój <span class="text-gold">gabinet</span></h2>
-                    <form class="space-y-6">
-                        <input type="text" placeholder="Twoje Imię" class="w-full bg-transparent border-b border-white/20 py-5 outline-none focus:border-gold transition-colors text-white">
-                        <textarea placeholder="Opisz swój problem..." rows="4" class="w-full bg-transparent border-b border-white/20 py-5 outline-none focus:border-gold transition-colors resize-none text-white"></textarea>
-                        <button class="bg-gold text-white px-12 py-5 rounded-full text-[10px] font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all">Wyślij zgłoszenie</button>
+                    <form action="https://formspree.io/f/maqazzzb" method="POST" class="space-y-6">
+                        <div>
+                            <input type="text" name="name" required placeholder="Twoje Imię" class="w-full bg-transparent border-b border-white/20 py-5 outline-none focus:border-gold transition-colors text-white">
+                        </div>
+                        <div>
+                            <input type="email" name="email" required placeholder="Twój adres e-mail" class="w-full bg-transparent border-b border-white/20 py-5 outline-none focus:border-gold transition-colors text-white">
+                        </div>
+                        <div>
+                            <textarea name="message" required placeholder="Opisz swój problem..." rows="4" class="w-full bg-transparent border-b border-white/20 py-5 outline-none focus:border-gold transition-colors resize-none text-white"></textarea>
+                        </div>
+                        <button type="submit" class="bg-gold text-white px-12 py-5 rounded-full text-[10px] font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all">Wyślij zgłoszenie</button>
                     </form>
                 </div>
                 <div class="h-[400px] rounded-[40px] overflow-hidden border-2 border-gold shadow-2xl">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2443.9113651111054!2d21.0122287!3d52.2296756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDEzJzQ2LjgiTiAyMcKwMDAnNDQuMCJF!5e0!3m2!1spl!2spl!4v1650000000000" width="100%" height="100%" style="border:0; filter: contrast(1.1) sepia(0.3);" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2443.766341258957!2d21.0117812!3d52.221763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471eccf08818820f%3A0xc00f39446d36e2f7!2sJagoda%20Zdanowska!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl" width="100%" height="100%" style="border:0; filter: contrast(1.1) sepia(0.3);" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </section>
@@ -319,7 +339,7 @@
             'headspa3': { title: 'Terapia powięzi skóry głowy', body: '<p>To technika dla osób, które szukają głębokiego efektu terapeutycznego. Z biegiem czasu skóra głowy może stać się napięta i „przyklejona” do podłoża, co utrudnia pracę mieszków włosowych i przyspiesza wypadanie włosów. Podczas masażu powięziowego pracujemy nad przywróceniem skórze elastyczności i mobilności. Jest to niezwykle odprężające uczucie, które uwalnia od napięciowych bólów głowy i stymuluje mikrokrążenie. Skóra staje się lepiej odżywiona, a Ty odczuwasz głęboki spokój, który promieniuje na całą twarz, dając efekt naturalnego wypoczęcia..</p>' },
             'tr1': { title: 'Pierwsza wizyta', body: '<p>To najważniejszy krok w stronę zdrowych włosów. Nie szukamy rozwiązań „na skróty” – przeprowadzamy bardzo szczegółowy wywiad dotyczący Twojego zdrowia, diety i stylu życia. Kluczowym punktem jest badanie trichoskopowe, czyli obejrzenie skóry głowy i włosów pod specjalną kamerą w ogromnym powiększeniu. Dzięki temu widzimy to, co niewidoczne gołym okiem: stan ujść mieszków, naczynia krwionośne czy strukturę włosa. Na tej podstawie tworzymy Twój indywidualny plan kuracji, dobieramy celowane zabiegi i uczymy Cię poprawnej pielęgnacji domowej..</p>' },
             'tr2': { title: 'Kolejna wizyta', body: '<p>Spotykamy się po kilku tygodniach, aby wspólnie ocenić pierwsze efekty naszych działań. Podczas tej wizyty ponownie sprawdzamy stan skóry pod kamerą, by obiektywnie porównać wyniki. To czas na ewentualną modyfikację planu, odpowiedź na Twoje pytania i upewnienie się, że terapia zmierza w najlepszym możliwym kierunku. Twoje zaangażowanie i nasza wiedza to duet, który przynosi trwałe rezultaty..</p>' },
-            'tr3': { title: 'Zabieg na łodygę włosa', body: '<p>Zapomnij o maskach, które działają tylko do pierwszego mycia. Nasz zabieg to intensywna kuracja naprawcza, która wnika w głąb włosa, uzupełniając ubytki w jego strukturze. Skupiamy się na dostarczeniu lipidów i protein, które są naturalnym budulcem włosa. Po zabiegu pasma są wyraźnie grubsze, bardziej elastyczne i odporne na łamanie czy rozdwajanie. To ratunek dla włosów, które straciły swoją witalność przez stylizację lub czynniki zewnętrzne..</p>' },
+            'tr3': { title: 'Zabieg na łodygę włosa', body: '<p>Zapomnij o maskach, które działają tylko do pierwszego mycia. Nasz zabieg to intensywna kuracja naprawcza, która wnika w głąb włosa, uzupełniając ubytki w jego strukturze. Skupiamy się na dostarczeniu lipidów i protein, które are naturalnym budulcem włosa. Po zabiegu pasma are wyraźnie grubsze, bardziej elastyczne i odporne na łamanie czy rozdwajanie. To ratunek dla włosów, które straciły swoją witalność przez stylizację lub czynniki zewnętrzne..</p>' },
             'tr4': { title: 'Zabieg na skórę głowy', body: '<p>Jeśli borykasz się z łupieżem, nadmiernym przetłuszczaniem, swędzeniem czy pieczeniem – ten zabieg jest stworzony dla Ciebie. Używamy profesjonalnych preparatów leczniczych, które przywracają skórze jej naturalną równowagę i odpowiednie pH. Oczyszczamy skórę z tzw. czopa łojowego, który często blokuje wzrost nowych włosów. Zdrowa, ukojona skóra to jedyny fundament, na którym mogą urosnąć zdrowe i mocne włosy..</p>' },
             'tr5': { title: 'Mezoterapia mikroigłowa', body: '<p>To zabieg dla osób, które chcą realnie zagęścić swoją fryzurę. Przy pomocy urządzenia z cieniutkimi igiełkami wykonujemy tysiące mikroskopijnych nakłuć. Działa to dwutorowo: po pierwsze, pobudzamy skórę do naturalnej regeneracji i produkcji nowych komórek, a po drugie – tworzymy drogę dla silnie skoncentrowanych ampułek, by mogły dotrzeć bezpośrednio do cebulek. To jeden z najskuteczniejszych sposobów na walkę z wypadaniem włosów i pobudzenie „baby hair”..</p>' },
             'tr6': { title: 'Mezoterapia igłowa', body: '<p>Najbardziej bezpośrednia forma odżywienia włosów, jaką zna współczesna trychologia. Podczas zabiegu wprowadzamy specjalistyczny koktajl (witaminy, minerały, peptydy) bezpośrednio do głębokich warstw skóry, tam gdzie odbywa się wzrost włosa. Omijamy barierę naskórkową, której nie przebije żaden szampon czy wcierka. To zabieg o ogromnej sile rażenia, idealny przy silnym wypadaniu włosów i potrzebie szybkiej regeneracji..</p>' },
@@ -356,17 +376,17 @@
             showPage('detail-page');
         }
 
-        /* Logika Cookies ze środkowym oknem */
         function acceptCookies() {
             localStorage.setItem('cookiesAccepted', 'true');
             document.getElementById('cookie-overlay').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Przywrócenie scrollowania
+            document.body.style.overflow = 'auto';
+            console.log("Analityka aktywowana");
         }
 
         window.onload = function() {
             if (!localStorage.getItem('cookiesAccepted')) {
                 document.getElementById('cookie-overlay').style.display = 'flex';
-                document.body.style.overflow = 'hidden'; // Blokada scrollowania przy otwartym oknie
+                document.body.style.overflow = 'hidden';
             }
         };
     </script>
