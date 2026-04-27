@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Jagoda Zdanowska | Trychologia & Head Spa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:italic,wght@400;700&family=Montserrat:wght@200;400;600&display=swap');
+        
+        body { font-family: 'Montserrat', sans-serif; background-color: #f8f5f0; color: #3d3630; overflow-x: hidden; width: 100%; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .text-gold { color: #c5a059; }
+        .bg-gold { background-color: #c5a059; }
+        
+        /* Deep Basaltowy Brąz */
+        #main-nav { 
+            background-color: #352e29; 
+            border-bottom: 2px solid #c5a059;
+            height: 90px;
+            display: flex;
+            align-items: center;
+        }
+        
+        #side-menu {
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 80%;
+            max-width: 400px;
+            left: 0;
+            background-color: #352e29;
+            color: #f8f5f0;
+        }
+        #side-menu.active { transform: translateX(0); }
+        
+        #menu-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            background: rgba(53, 46, 41, 0.75); 
+        }
+        #menu-overlay.active { opacity: 1; visibility: visible; }
+        
+        .menu-link {
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin: 12px 0;
+            transition: all 0.3s;
+            color: #f8f5f0;
+        }
+        .menu-link:hover { color: #c5a059; padding-left: 10px; }
+
+        .hamburger span {
+            display: block;
+            width: 30px;
+            height: 2px;
+            background-color: #c5a059;
+            margin: 7px 0;
+            transition: 0.4s;
+        }
+
+        .service-card { background: #ffffff; border: none; box-shadow: 0 15px 35px rgba(53, 46, 41, 0.05); transition: all 0.5s; cursor: pointer; }
+        @media (min-width: 1024px) { .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(197, 160, 89, 0.2); } }
+
+        .page-content { display: none; opacity: 0; }
+        .active-page { display: block; opacity: 1; animation: fadeIn 0.6s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .hero-img-container { transition: transform 0.7s ease, box-shadow 0.7s ease; }
+        @media (min-width: 1024px) {
+            .hero-img-container:hover { transform: rotate(0deg) scale(1.02); box-shadow: 0 25px 50px -12px rgba(197, 160, 89, 0.5); }
+        }
+
+        /* Ustawienie powiadomienia Cookies na środku z przyciemnieniem */
+        #cookie-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        #cookie-notice {
+            background-color: #352e29;
+            color: white;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid #c5a059;
+            border-radius: 40px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="selection:bg-gold selection:text-white">
+
+    <div id="cookie-overlay">
+        <div id="cookie-notice" class="flex flex-col items-center gap-8">
+            <span class="text-gold tracking-[0.3em] text-[10px] font-bold uppercase">Prywatność</span>
+            <p class="text-[12px] uppercase tracking-widest leading-relaxed">
+                W trosce o Twoje bezpieczeństwo i najwyższą jakość usług, nasza strona używa plików cookies.
+            </p>
+            <button onclick="acceptCookies()" class="bg-gold text-white px-12 py-4 rounded-full text-[10px] font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all w-full">
+                Akceptuję i przechodzę do strony
+            </button>
+        </div>
+    </div>
+
+    <div id="menu-overlay" onclick="toggleMenu()" class="fixed inset-0 z-[104]"></div>
+
+    <nav class="fixed w-full z-[100] shadow-2xl" id="main-nav">
+        <div class="max-w-7xl mx-auto px-6 w-full flex flex-row-reverse justify-between items-center">
+            <a href="#" onclick="showPage('home-page')" class="text-xl md:text-2xl font-light tracking-[0.2em] md:tracking-[0.4em] uppercase group text-right text-white">
+                Jagoda <span class="text-gold font-bold transition-colors">Zdanowska</span>
+            </a>
+            
+            <button onclick="toggleMenu()" class="hamburger p-2 z-[110] hover:opacity-70 focus:outline-none">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div id="side-menu" class="fixed top-0 h-full z-[105] shadow-2xl p-10 flex flex-col">
+        <button onclick="toggleMenu()" class="self-start text-4xl mb-12 text-gold hover:text-white transition">×</button>
+        
+        <nav class="flex flex-col space-y-4">
+            <span class="text-[10px] text-gray-400 uppercase tracking-[0.3em] mb-4">Ekspert Trychologii</span>
+            <a href="#" onclick="handleMenuClick('home-page')" class="menu-link">Start</a>
+            <a href="#" onclick="handleMenuClick('home-page', 'uslugi-headspa')" class="menu-link italic">Head Spa</a>
+            <a href="#" onclick="handleMenuClick('home-page', 'uslugi-trycho')" class="menu-link italic">Trychologia</a>
+            <a href="#" onclick="handleMenuClick('cennik-page')" class="menu-link">Cennik</a>
+            <a href="#" onclick="handleMenuClick('regulamin-page')" class="menu-link">Regulamin</a>
+            
+            <div class="pt-10">
+                <a href="#" onclick="handleMenuClick('home-page', 'kontakt')" class="block text-center bg-gold text-white px-8 py-4 rounded-full text-[10px] font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all">
+                    Umów wizytę
+                </a>
+            </div>
+        </nav>
+        <div class="mt-auto pt-10 text-[10px] text-gray-400 tracking-widest uppercase border-t border-white/10">
+            © 2024 Jagoda Zdanowska
+        </div>
+    </div>
+
+    <main id="home-page" class="page-content active-page pt-32">
+        <section class="min-h-[80vh] flex items-center px-6 py-10">
+            <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right" class="text-center md:text-left">
+                    <span class="text-gold tracking-[0.3em] text-xs font-bold uppercase mb-4 block">Holistyczna Pielęgnacja</span>
+                    <h1 class="text-5xl md:text-8xl mb-8 leading-[1.1]">Rytuały <br><span class="italic font-normal">dla duszy i włosów</span></h1>
+                    <p class="text-gray-700 text-base md:text-lg max-w-md mb-10 mx-auto md:mx-0">Poczuj ukojenie w japońskim rytuale Head Spa i zadbaj o zdrowie skóry głowy pod okiem eksperta.</p>
+                </div>
+                <div class="relative px-4" data-aos="zoom-in">
+                    <div class="hero-img-container rounded-[30px] md:rounded-[40px] overflow-hidden shadow-2xl rotate-3 max-w-md mx-auto border-4 border-white">
+                        <img src="jagoda.jfif" alt="Jagoda Zdanowska" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="uslugi-headspa" class="py-24 px-6 bg-[#f2ede4]">
+            <div class="max-w-7xl mx-auto text-center">
+                <h2 class="text-4xl md:text-6xl mb-4 italic">Zabiegi Head Spa</h2>
+                <p class="text-gold tracking-[0.4em] text-[10px] font-bold uppercase mb-16">Ukojenie zmysłów</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div onclick="showDetails('headspa1')" class="service-card p-10 rounded-[30px] md:rounded-[40px]">
+                        <span class="text-gold font-bold text-xs uppercase tracking-widest">Ritual 01</span>
+                        <h3 class="text-2xl mt-4 mb-4">Trychologiczne Head Spa</h3>
+                        <p class="text-gray-400 text-sm mb-6">Masaż, który regeneruje nie tylko włosy, ale i umysł.</p>
+                        <span class="text-[10px] font-bold text-gold uppercase tracking-widest">Szczegóły +</span>
+                    </div>
+                    <div onclick="showDetails('headspa2')" class="service-card p-10 rounded-[30px] md:rounded-[40px]">
+                        <span class="text-gold font-bold text-xs uppercase tracking-widest">Ritual 02</span>
+                        <h3 class="text-2xl mt-4 mb-4">Masaż Obręczy barkowej</h3>
+                        <p class="text-gray-400 text-sm mb-6">Głębokie rozluźnienie napięć karku.</p>
+                        <span class="text-[10px] font-bold text-gold uppercase tracking-widest">Szczegóły +</span>
+                    </div>
+                    <div onclick="showDetails('headspa3')" class="service-card p-10 rounded-[30px] md:rounded-[40px]">
+                        <span class="text-gold font-bold text-xs uppercase tracking-widest">Ritual 03</span>
+                        <h3 class="text-2xl mt-4 mb-4">Masaż Powięzi skóry głowy</h3>
+                        <p class="text-gray-400 text-sm mb-6">Poprawa elastyczności i mikrokrążenia.</p>
+                        <span class="text-[10px] font-bold text-gold uppercase tracking-widest">Szczegóły +</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="uslugi-trycho" class="py-24 px-6">
+            <div class="max-w-7xl mx-auto text-center">
+                <h2 class="text-4xl md:text-6xl mb-4 italic">Trychologia</h2>
+                <p class="text-gold tracking-[0.4em] text-[10px] font-bold uppercase mb-16">Specjalistyczna Terapia</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+                    <div onclick="showDetails('tr1')" class="service-card p-10 rounded-[30px] md:rounded-[40px]">
+                        <span class="text-gold font-bold text-xs uppercase tracking-widest">Konsultacja 01</span>
+                        <h3 class="text-xl mt-4 mb-2">Pierwsza wizyta</h3>
+                        <p class="text-gray-400 text-sm">Badanie i diagnoza stanu skóry głowy.</p>
+                    </div>
+                    <div onclick="showDetails('tr2')" class="service-card p-10 rounded-[30px] md:rounded-[40px]">
+                        <span class="text-gold font-bold text-xs uppercase tracking-widest">Konsultacja 02</span>
+                        <h3 class="text-xl mt-4 mb-2">Kolejna wizyta</h3>
+                        <p class="text-gray-400 text-sm">Monitorowanie postępów kuracji.</p>
+                    </div>
+                    <div onclick="showDetails('tr3')" class="service-card p-10 rounded-[30px] md:rounded-[40px]">
+                        <span class="text-gold font-bold text-xs uppercase tracking-widest">Zabieg 01</span>
+                        <h3 class="text-xl mt-4 mb-2">Na łodygę włosa</h3>
+                        <p class="text-gray-400 text-sm">Odbudowa struktury i blasku.</p>
+                    </div>
+                    <div onclick="showDetails('tr4')" class="service-card p-10 rounded-[30px] md:rounded-[40px]">
+                        <span class="text-gold font-bold text-xs uppercase tracking-widest">Zabieg 02</span>
+                        <h3 class="text-xl mt-4 mb-2">Na skórę głowy</h3>
+                        <p class="text-gray-400 text-sm">Leczenie problemów skórnych.</p>
+                    </div>
+                    <div onclick="showDetails('tr5')" class="service-card p-10 rounded-[30px] md:rounded-[40px]">
+                        <span class="text-gold font-bold text-xs uppercase tracking-widest">Zabieg 03</span>
+                        <h3 class="text-xl mt-4 mb-2">Mezoterapia mikroigłowa</h3>
+                        <p class="text-gray-400 text-sm">Stymulacja odnowy biologicznej.</p>
+                    </div>
+                    <div onclick="showDetails('tr6')" class="service-card p-10 rounded-[30px] md:rounded-[40px]">
+                        <span class="text-gold font-bold text-xs uppercase tracking-widest">Zabieg 04</span>
+                        <h3 class="text-xl mt-4 mb-2">Mezoterapia igłowa</h3>
+                        <p class="text-gray-400 text-sm">Intensywne odżywienie cebulek.</p>
+                    </div>
+                    <div onclick="showDetails('tr7')" class="service-card p-10 rounded-[30px] md:rounded-[40px]">
+                        <span class="text-gold font-bold text-xs uppercase tracking-widest">Zabieg 05</span>
+                        <h3 class="text-xl mt-4 mb-2">Karboksyterapia</h3>
+                        <p class="text-gray-400 text-sm">Dotlenienie poprzez medyczny CO2.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="kontakt" class="py-24 px-6 bg-[#352e29] text-white">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20">
+                <div>
+                    <h2 class="text-4xl md:text-5xl mb-10 italic">Odwiedź mój <span class="text-gold">gabinet</span></h2>
+                    <form class="space-y-6">
+                        <input type="text" placeholder="Twoje Imię" class="w-full bg-transparent border-b border-white/20 py-5 outline-none focus:border-gold transition-colors text-white">
+                        <textarea placeholder="Opisz swój problem..." rows="4" class="w-full bg-transparent border-b border-white/20 py-5 outline-none focus:border-gold transition-colors resize-none text-white"></textarea>
+                        <button class="bg-gold text-white px-12 py-5 rounded-full text-[10px] font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all">Wyślij zgłoszenie</button>
+                    </form>
+                </div>
+                <div class="h-[400px] rounded-[40px] overflow-hidden border-2 border-gold shadow-2xl">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2443.9113651111054!2d21.0122287!3d52.2296756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDEzJzQ2LjgiTiAyMcKwMDAnNDQuMCJF!5e0!3m2!1spl!2spl!4v1650000000000" width="100%" height="100%" style="border:0; filter: contrast(1.1) sepia(0.3);" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section id="detail-page" class="page-content pt-40 px-6 pb-20">
+        <div class="max-w-5xl mx-auto">
+            <button onclick="showPage('home-page')" class="mb-12 flex items-center text-[10px] font-bold tracking-widest uppercase hover:text-gold transition">← Oferta</button>
+            <div class="grid lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-8">
+                    <h2 id="detail-title" class="text-4xl md:text-7xl mb-10 italic"></h2>
+                    <div id="detail-body" class="text-gray-600 text-lg leading-relaxed space-y-6"></div>
+                </div>
+                <div class="lg:col-span-4">
+                    <div class="bg-white p-10 rounded-[40px] shadow-xl border border-gold/20 text-center sticky top-40">
+                        <p class="text-xs uppercase tracking-widest mb-4">Umów wizytę</p>
+                        <a href="tel:+48783016770" class="block py-5 bg-gold text-white rounded-full text-xs font-bold tracking-widest">783 016 770</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main id="cennik-page" class="page-content pt-40 px-6 min-h-screen pb-20">
+        <div class="max-w-4xl mx-auto bg-white p-12 md:p-20 rounded-[40px] shadow-2xl">
+            <h2 class="text-4xl md:text-7xl mb-16 italic text-center">Cennik</h2>
+            <div class="grid md:grid-cols-2 gap-20">
+                <div>
+                    <h3 class="text-2xl text-gold mb-8 italic">Head Spa</h3>
+                    <div class="space-y-4 text-[10px] uppercase tracking-widest">
+                        <div class="flex justify-between border-b border-gray-100 pb-2"><span>Head Spa Ritual</span><span>280 zł</span></div>
+                        <div class="flex justify-between border-b border-gray-100 pb-2"><span>Masaż Obręczy</span><span>150 zł</span></div>
+                        <div class="flex justify-between border-b border-gray-100 pb-2"><span>Masaż Powięzi</span><span>180 zł</span></div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl text-gold mb-8 italic">Trychologia</h3>
+                    <div class="space-y-4 text-[10px] uppercase tracking-widest">
+                        <div class="flex justify-between border-b border-gray-100 pb-2"><span>Konsultacja I</span><span>200 zł</span></div>
+                        <div class="flex justify-between border-b border-gray-100 pb-2"><span>Konsultacja II</span><span>150 zł</span></div>
+                        <div class="flex justify-between border-b border-gray-100 pb-2"><span>Mezoterapia</span><span>od 350 zł</span></div>
+                        <div class="flex justify-between border-b border-gray-100 pb-2"><span>Karboksyterapia</span><span>180 zł</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="regulamin-page" class="page-content pt-40 px-6 min-h-screen pb-20">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-4xl md:text-6xl mb-12 italic">Regulamin</h2>
+            <div class="text-gray-600 space-y-8 text-base">
+                <p>1. Rezerwacja wizyt odbywa się telefonicznie.</p>
+                <p>2. Prosimy o informację o odwołaniu wizyty 24h przed terminem.</p>
+                <p>3. Do każdego zabiegu podchodzimy w sposób indywidualny.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, disable: 'mobile' });
+
+        const serviceData = {
+            'headspa1': { title: 'Trychologiczne Head Spa', body: '<p>To nasz flagowy zabieg, który udowadnia, że dbanie o zdrowie może być czystą przyjemnością. Rytuał zaczynamy od dogłębnego oczyszczenia skóry głowy z nadmiaru zrogowaciałego naskórka i osadów, których nie da się usunąć podczas codziennego mycia w domu. Następnie, przy użyciu profesjonalnych dermokosmetyków i kojącej pary, wprowadzamy składniki aktywne w głąb włosa. Całość odbywa się w atmosferze głębokiego relaksu, przy użyciu technik masażu, które wyciszają zmysły. Efekt? Skóra, która w końcu „oddycha”, włosy lśniące jak po najlepszej regeneracji i głowa wolna od codziennych trosk..</p>' },
+            'headspa2': { title: 'Terapia powięzi Obręczy barkowej', body: '<p>Często nie zdajemy sobie sprawy, że kondycja naszych włosów zaczyna się już... w ramionach. Chroniczny stres i godziny spędzone przed komputerem powodują, że mięśnie karku stają się sztywne jak pancerz, co ogranicza dopływ krwi do skóry głowy. Nasz masaż koncentruje się na rozluźnieniu tych napięć i „odblokowaniu” przepływu energii oraz składników odżywczych. To idealne rozwiązanie dla osób skarżących się na bóle głowy i zmęczenie. Po zabiegu poczujesz niesamowitą lekkość w ramionach, a Twoje cebulki włosowe otrzymają naturalny zastrzyk energii dzięki lepszemu ukrwieniu..</p>' },
+            'headspa3': { title: 'Terapia powięzi skóry głowy', body: '<p>To technika dla osób, które szukają głębokiego efektu terapeutycznego. Z biegiem czasu skóra głowy może stać się napięta i „przyklejona” do podłoża, co utrudnia pracę mieszków włosowych i przyspiesza wypadanie włosów. Podczas masażu powięziowego pracujemy nad przywróceniem skórze elastyczności i mobilności. Jest to niezwykle odprężające uczucie, które uwalnia od napięciowych bólów głowy i stymuluje mikrokrążenie. Skóra staje się lepiej odżywiona, a Ty odczuwasz głęboki spokój, który promieniuje na całą twarz, dając efekt naturalnego wypoczęcia..</p>' },
+            'tr1': { title: 'Pierwsza wizyta', body: '<p>To najważniejszy krok w stronę zdrowych włosów. Nie szukamy rozwiązań „na skróty” – przeprowadzamy bardzo szczegółowy wywiad dotyczący Twojego zdrowia, diety i stylu życia. Kluczowym punktem jest badanie trichoskopowe, czyli obejrzenie skóry głowy i włosów pod specjalną kamerą w ogromnym powiększeniu. Dzięki temu widzimy to, co niewidoczne gołym okiem: stan ujść mieszków, naczynia krwionośne czy strukturę włosa. Na tej podstawie tworzymy Twój indywidualny plan kuracji, dobieramy celowane zabiegi i uczymy Cię poprawnej pielęgnacji domowej..</p>' },
+            'tr2': { title: 'Kolejna wizyta', body: '<p>Spotykamy się po kilku tygodniach, aby wspólnie ocenić pierwsze efekty naszych działań. Podczas tej wizyty ponownie sprawdzamy stan skóry pod kamerą, by obiektywnie porównać wyniki. To czas na ewentualną modyfikację planu, odpowiedź na Twoje pytania i upewnienie się, że terapia zmierza w najlepszym możliwym kierunku. Twoje zaangażowanie i nasza wiedza to duet, który przynosi trwałe rezultaty..</p>' },
+            'tr3': { title: 'Zabieg na łodygę włosa', body: '<p>Zapomnij o maskach, które działają tylko do pierwszego mycia. Nasz zabieg to intensywna kuracja naprawcza, która wnika w głąb włosa, uzupełniając ubytki w jego strukturze. Skupiamy się na dostarczeniu lipidów i protein, które są naturalnym budulcem włosa. Po zabiegu pasma są wyraźnie grubsze, bardziej elastyczne i odporne na łamanie czy rozdwajanie. To ratunek dla włosów, które straciły swoją witalność przez stylizację lub czynniki zewnętrzne..</p>' },
+            'tr4': { title: 'Zabieg na skórę głowy', body: '<p>Jeśli borykasz się z łupieżem, nadmiernym przetłuszczaniem, swędzeniem czy pieczeniem – ten zabieg jest stworzony dla Ciebie. Używamy profesjonalnych preparatów leczniczych, które przywracają skórze jej naturalną równowagę i odpowiednie pH. Oczyszczamy skórę z tzw. czopa łojowego, który często blokuje wzrost nowych włosów. Zdrowa, ukojona skóra to jedyny fundament, na którym mogą urosnąć zdrowe i mocne włosy..</p>' },
+            'tr5': { title: 'Mezoterapia mikroigłowa', body: '<p>To zabieg dla osób, które chcą realnie zagęścić swoją fryzurę. Przy pomocy urządzenia z cieniutkimi igiełkami wykonujemy tysiące mikroskopijnych nakłuć. Działa to dwutorowo: po pierwsze, pobudzamy skórę do naturalnej regeneracji i produkcji nowych komórek, a po drugie – tworzymy drogę dla silnie skoncentrowanych ampułek, by mogły dotrzeć bezpośrednio do cebulek. To jeden z najskuteczniejszych sposobów na walkę z wypadaniem włosów i pobudzenie „baby hair”..</p>' },
+            'tr6': { title: 'Mezoterapia igłowa', body: '<p>Najbardziej bezpośrednia forma odżywienia włosów, jaką zna współczesna trychologia. Podczas zabiegu wprowadzamy specjalistyczny koktajl (witaminy, minerały, peptydy) bezpośrednio do głębokich warstw skóry, tam gdzie odbywa się wzrost włosa. Omijamy barierę naskórkową, której nie przebije żaden szampon czy wcierka. To zabieg o ogromnej sile rażenia, idealny przy silnym wypadaniu włosów i potrzebie szybkiej regeneracji..</p>' },
+            'tr7': { title: 'Karboksyterapia', body: '<p>Często nazywana „cudownym gazem”, karboksyterapia polega na podaniu pod skórę medycznego dwutlenku węgla. Brzmi tajemniczo? Mechanizm jest prosty i genialny: Twój organizm, czując gaz, wysyła w to miejsce ogromną ilość tlenu i krwi, by go zneutralizować. Dzięki temu mieszki włosowe zostają gwałtownie dożywione i dotlenione, jak nigdy wcześniej. To potężny impuls, który zmusza uśpione cebulki do pracy i hamuje proces wypadania włosów w bardzo krótkim czasie.a.</p>' }
+        };
+
+        function toggleMenu() {
+            document.getElementById('side-menu').classList.toggle('active');
+            document.getElementById('menu-overlay').classList.toggle('active');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        function handleMenuClick(pageId, sectionId = null) {
+            if(document.getElementById('side-menu').classList.contains('active')) toggleMenu();
+            showPage(pageId);
+            if (sectionId) {
+                setTimeout(() => {
+                    const el = document.getElementById(sectionId);
+                    if (el) window.scrollTo({ top: el.offsetTop - 120, behavior: 'smooth' });
+                }, 400);
+            }
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(pageId).classList.add('active-page');
+            window.scrollTo(0, 0);
+        }
+
+        function showDetails(id) {
+            const data = serviceData[id];
+            document.getElementById('detail-title').innerText = data.title;
+            document.getElementById('detail-body').innerHTML = data.body;
+            showPage('detail-page');
+        }
+
+        /* Logika Cookies ze środkowym oknem */
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            document.getElementById('cookie-overlay').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Przywrócenie scrollowania
+        }
+
+        window.onload = function() {
+            if (!localStorage.getItem('cookiesAccepted')) {
+                document.getElementById('cookie-overlay').style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Blokada scrollowania przy otwartym oknie
+            }
+        };
+    </script>
+</body>
+</html>
